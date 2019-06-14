@@ -6,14 +6,16 @@
     <ul>
       <li v-for="(item, index) in cartProducts" :key="index">
         <span>{{ item.title }} - {{ item.price }} * {{ item.count }}</span>
+        <slot :item="item"></slot>
       </li>
     </ul>
     <h5 v-if="total">总价：{{total}} ￥</h5>
-    <el-button type="warning" @click="clearCart" :disabled="!cartProducts.length">清空购物车</el-button>
+    <el-button type="warning" @click="clearCartProduct" :disabled="!cartProducts.length">清空购物车</el-button>
   </aside>
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
   export default {
     name: 'ShoppingCart',
     props: {
@@ -30,9 +32,19 @@
         default: function() {
           return []
         }
-      },
-      clearCart: {
+      }
+      /* clearCart: {
         type: Function
+      }*/
+    },
+    methods: {
+      ...mapActions('shoppingCart', {
+        clearCart: 'clearCart'
+      }),
+      clearCartProduct() {
+        console.log('this--------:', this)
+        this.$emit('clearCart', 'hasClear', this.cartProducts)
+        this.clearCart()
       }
     }
   }

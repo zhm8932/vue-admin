@@ -1,0 +1,179 @@
+Vue笔记
+
+一、Vue的双向数据绑定原理是什么？或者vue的响应式原理
+vue.js是采用数据劫持，并结合发布者——订阅者的模式：
+通过Object.defineProperty()来劫持vue中各个属性的setter、getter，在数据变动的时候，再发布消息给订阅者
+
+简而言之：
+        vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
+
+具体步骤：
+        第一步：需要observe的数据对象进行递归遍历，包括子属性对象的属性，都加上 setter和getter这样的话，给这个对象的某个值赋值，就会触发setter，那么就能监听到了数据变化
+
+        第二步：compile解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图
+
+        第三步：Watcher订阅者是Observer和Compile之间通信的桥梁，主要做的事情是:1、在自身实例化时往属性订阅器(dep)里面添加自己2、自身必须有一个update()方法3、待属性变动dep.notice()通知时，能调用自身的update()方法，并触发Compile中绑定的回调，则功成身退。
+
+       第四步：MVVM作为数据绑定的入口，整合Observer、Compile和Watcher三者，通过Observer来监听自己的model数据变化，通过Compile来解析编译模板指令，最终利用Watcher搭起Observer和Compile之间的通信桥梁，达到数据变化 -> 视图更新；视图交互变化(input) -> 数据model变更的双向绑定效果。
+
+2.mvc和mvvm的差别
+在MVC里，View是可以直接访问Model的！从而，View里会包含Model信息，不可避免的还要包括一些业务逻辑。 MVC模型关注的是Model的不变，所以，在MVC模型里，Model不依赖于View，但是 View是依赖于Model的。不仅如此，因为有一些业务逻辑在View里实现了，导致要更改View也是比较困难的，至少那些业务逻辑是无法重用的。
+ 
+MVVM在概念上是真正将页面与数据逻辑分离的模式，它把数据绑定工作放到一个JS里去实现，而这个JS文件的主要功能是完成数据的绑定，即把model绑定到UI的元素上。
+ 
+有人做过测试：使用Angular（MVVM）代替Backbone（MVC）来开发，代码可以减少一半。
+ 
+此外，MVVM另一个重要特性，双向绑定。它更方便你同时维护页面上都依赖于某个字段的N个区域，而不用手动更新它们。
+
+7.怎么理解MVVM模式的这些框架？
+答：1、M就是Model模型层，存的一个数据对象。
+       2、V就是View视图层，所有的html节点在这一层。
+       3、VM就是ViewModel，它通过data属性连接Model模型层，通过el属性连接View视图层。
+	   
+8.简单描述Vue每个周期具体适合哪些场景？
+beforecreate : 可以在这加个loading事件，在加载实例时触发 
+created : 初始化完成时的事件写在这里，如在这结束loading事件，异步请求也适宜在这里调用 
+mounted : 挂载元素，获取到DOM节点 
+updated : 如果对数据统一处理，在这里写上相应函数 
+beforeDestroy : 可以做一个确认停止事件的确认框 
+nextTick : 更新数据后立即操作dom
+
+9.http与https的差别
+HTTP协议传输的数据都是未加密的，也就是明文的，因此使用HTTP协议传输隐私信息非常不安全，为了保证这些隐私数据能加密传输，于是网景公司设计了SSL（Secure Sockets Layer）协议用于对HTTP协议传输的数据进行加密，从而就诞生了HTTPS。
+
+简单来说，HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，要比http协议安全。
+
+HTTPS和HTTP的区别主要如下：
+
+
+1、https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。
+
+2、http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。
+
+3、http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。
+4、http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。想·
+	   
+	   
+	   
+七. 在Vue中使用插件的步骤
+采用ES6的import ... from ...语法或CommonJSd的require()方法引入插件
+使用全局方法Vue.use( plugin )使用插件,可以传入一个选项对象Vue.use(MyPlugin, { someOption: true })
+
+
+八. 请列举出3个Vue中常用的生命周期钩子函数?
+created: 实例已经创建完成之后调用,在这一步,实例已经完成数据观测, 属性和方法的运算, watch/event事件回调. 然而, 挂载阶段还没有开始, $el属性目前还不可见
+mounted: el被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。
+activated::keep-alive组件激活时调用
+
+
+10、v-if和v-show的区别？
+
+ 
+
+11、vue如何搭配其他技术使用
+
+ 
+
+12、computed和watch的区别
+在数据未发生变化时，优先读取缓存。computed 计算属性只有在相关的数据发生变化时才会改变要计算的属性，当相关数据没有变化是，它会读取缓存。而不必想 motheds方法 和 watch 方法是的每次都去执行函数。
+虽然计算属性在大多数情况下是非常适合的，但是在有些情况下我们需要自定义一个watcher，在数据变化时来执行异步操作，这时watch是非常有用的
+作用机制上 
+1.watch和computed都是以Vue的依赖追踪机制为基础的，它们都试图处理这样一件事情：当某一个数据（称它为依赖数据）发生变化的时候，所有依赖这个数据的“相关”数据“自动”发生变化，也就是自动调用相关的函数去实现数据的变动。 
+2.对methods:methods里面是用来定义函数的，很显然，它需要手动调用才能执行。而不像watch和computed那样，“自动执行”预先定义的函数 
+computed是计算属性，事实上和和data对象里的数据属性是同一类的（使用上）, 
+3.watch:类似于监听机制+事件机制： 
+
+但watch和computed也有明显不同的地方： 
+watch和computed各自处理的数据关系场景不同 
+1.watch擅长处理的场景：一个数据影响多个数据 
+2.computed擅长处理的场景：一个数据受多个数据影响 
+watch擅长处理的场景：一个数据影响多个数据
+
+
+
+
+13、虚拟DOM是什么，怎么实现的？
+
+三. 如何让CSS只在当前组件中起作用?
+将当前组件的<style>修改为<style scoped>
+
+四. <keep-alive></keep-alive>的作用是什么?
+<keep-alive></keep-alive> 包裹动态组件时，会缓存不活动的组件实例,主要用于保留组件状态或避免重新渲染。
+
+大白话: 比如有一个列表和一个详情，那么用户就会经常执行打开详情=>返回列表=>打开详情…这样的话列表和详情都是一个频率很高的页面，
+那么就可以对列表组件使用<keep-alive></keep-alive>进行缓存，
+这样用户每次返回列表的时候，都能从缓存中快速渲染，而不是重新渲染
+
+五. Vue中引入组件的步骤?
+1.采用ES6的import ... from ...语法或CommonJS的require()方法引入组件
+2.对组件进行注册,代码如下
+
+// 注册
+Vue.component('my-component', {
+  template: '<div>A custom component!</div>'
+})
+3.使用组件<my-component></my-component>
+
+六. 指令v-el的作用是什么?
+提供一个在页面上已存在的 DOM 元素作为 Vue 实例的挂载目标.可以是 CSS 选择器，也可以是一个 HTMLElement 实例,
+
+Vue生命周期及处理各个事件的过程
+（https://www.cnblogs.com/happ0/p/8075562.html）
+初始化事件-->生命周期-->beforeCreate-->挂载数据-->绑定事件-->created
+-->找实例或者组件对应的模板-->编译模板为虚拟dom放入到render函数中准备渲染--->beforeMount
+-->开始render--渲染出真实dom-->mounted
+1、beforeCreate（实例、组件通过new Vue() 创建出来之后会初始化事件和生命周期，然后就会执行beforeCreate钩子函数）；
+2、created（挂载数据，绑定事件等等，然后执行created函数，这个时候已经可以使用到数据，也可以更改数据,在这里更改数据不会触发updated函数，在这里可以在渲染前倒数第二次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取）；
+3、beforeMount（接下来找实例或者组件对应的模板，编译模板为虚拟dom放入到render函数中准备渲染，然后执行beforeMount钩子函数，在这个函数中虚拟dom已经创建完成，马上就要渲染,在这里也可以更改数据，不会触发updated，在这里可以在渲染前最后一次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取）；
+4、mounted（然后开始render,渲染出真实dom,然后执行mounted钩子函数。此时，组件已在页面中，数据、真实dom都已经处理好。事件都已经挂载好了）
+5、beforeUpdate(当组件或实例的数据更改之后，会立即执行beforeUpdate,然后vue的虚拟dom机制会重新构建虚拟dom，与上一次的虚拟dom树利用diff算法进行对比之后重新渲染)；
+6、updated（当更新完成后，执行updated,数据已完成更改，dom也重新render完）;
+7、beforeDestroy（当经过某种途径调用$destory方法后，立即执行beforeDestory,一般在这里做一些善后工作，例如清楚定时器、清除非指令绑定的事件等等）
+8、destroyed（组件的数据绑定、监听……去掉后只剩下dom空壳，这个时候，执行destoryed,在这里做善后工作也可以）
+
+
+Vue 数据获取有两种方式实现：
+https://router.vuejs.org/zh/guide/advanced/data-fetching.html
+1、导航完成之后获取：先完成导航，然后在组件生命钩子（created）中获取数据,在获取数据期间可以显示“加载中”的状态
+	在created中的时候，视图中的html并没有渲染出来，如果此时去操作html中的dom，一定找不到相关的元素；
+	在mounted中，html已经渲染完成，可以直接操作dom
+2、导航完成之前获取：导航完成之前，在路由进入路由守卫（beforeRouteEnter，beforeRouteUpdate）中获取数据，在数据获取成功后执行导航
+
+.sync （数据双向绑定）语法糖
+.native 组件的根元素上监听一个原生事件。可以使用 v-on 的修饰符 .native，否则不生效
+
+导航守卫分为全局守卫（beforeEach，afterEach）、路由独享守卫（beforeEnter）、组件内的守卫（beforeRouteEnter，beforeRouteUpdate，beforeRouteLeave）
+完整的导航解析流程:
+导航被触发。
+在失活的组件里调用离开守卫。
+调用全局的 beforeEach 守卫。
+在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。
+在路由配置里调用 beforeEnter。
+解析异步路由组件。
+在被激活的组件里调用 beforeRouteEnter。
+调用全局的 beforeResolve 守卫 (2.5+)。
+导航被确认。
+调用全局的 afterEach 钩子。
+触发 DOM 更新。
+用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

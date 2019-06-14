@@ -1,7 +1,11 @@
 <template>
   <div class="app-container">
-    <ProductList :list="list" :addProductCart="addProductCart"/>
-    <ShoppingCart title="我的购物车" :total="total" :cartProducts="cartProducts" :clearCart="clearCart"/>
+    <ProductList :list="list" :add-product-cart="addProductCart" />
+    <ShoppingCart title="我的购物车" :total="total" :cart-products="cartProducts" @clearCart="clearCart">
+      <template slot-scope="scope">
+        <p>已选商品数量 {{ scope.item.count }}</p>
+      </template>
+    </ShoppingCart>
   </div>
 </template>
 
@@ -26,8 +30,13 @@
       this.getProductsList()
     },
     methods: {
-      ...mapActions('shoppingCart', ['addProductCart', 'clearCart']),
-      ...mapActions('products', ['getProductsList'])
+      // ...mapActions('shoppingCart', ['addProductCart', 'clearCart']),
+      ...mapActions('shoppingCart', ['addProductCart']),
+      ...mapActions('products', ['getProductsList']),
+      clearCart(data, data2) {
+        console.log('通知父组件购物车已清空----------------:', data, data2)
+        this.getProductsList()
+      }
     }
   }
 </script>
