@@ -8,11 +8,11 @@
 <script>
   export default {
     name: 'Child',
-     model: {
+    model: {
       prop: 'giveModel'
       // event: 'returnBack'
     },
-    props: {
+     props: {
       giveModel: {
         type: String,
         default: ''

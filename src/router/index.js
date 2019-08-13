@@ -97,7 +97,8 @@ export const constantRoutes = [
   {
     path: '/login',
     component: () => import('../views/login'),
-    hidden: true
+    hidden: true,
+    meta: {title: '登录'}
   },
   {
     path: '/404',
@@ -120,11 +121,13 @@ export const constantRoutes = [
 ]
 
 const createRouter = () => new Router({
+  mode: 'history',
   routes: constantRoutes
 })
 
 const router = createRouter()
 
+console.log('router---:', router)
 export default router
 /*
 export default new Router({

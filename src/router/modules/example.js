@@ -1,5 +1,7 @@
 import Layout from '../../layout'
 
+import left from '../../components/Example/leftContent'
+
 const exampleRouter = {
   path: '/example',
   name: 'Example',
@@ -72,6 +74,104 @@ const exampleRouter = {
         title: 'createArticle', icon: 'edit'
       },
       component: () => import('../../views/example/create')
+    },
+    {
+      path: 'sync',
+      name: 'sync',
+      component: () => import('../../views/example/sync'),
+      meta: {
+        title: 'sync'
+      }
+    },
+    {
+      path: 'model',
+      name: 'model',
+      meta: {
+        title: 'model', icon: 'edit'
+      },
+      component: () => import('../../views/example/model')
+    },
+    {
+      path: 'slot',
+      name: 'slot',
+      meta: {title: 'slot', icon: 'edit'},
+      component: () => import('../../views/example/slot')
+    },
+    {
+      path: 'named',
+      name: 'named',
+      meta: {title: 'named', icon: 'edit'},
+      redirect: '/example/named/home',
+      component: () => import('../../views/example/named'),
+      children: [
+        {
+          path: 'home',
+          name: 'namedhome',
+          meta: {title: 'named', icon: 'edit'},
+          components: {
+            default: () => import('../../components/Example/mainContent'),
+            left: left,
+            right: () => import('../../components/Example/rightContent')
+          }
+        },
+        {
+          path: 'home2',
+          name: 'namedhome2',
+          meta: {title: 'named2', icon: 'edit2'},
+          components: {
+            default: () => import('../../components/Example/mainContent'),
+            right: () => import('../../components/Example/rightContent')
+          }
+        }
+      ]
+    },
+    {
+      path: 'communicate',
+      name: 'Communicate',
+      component: () => import('@/views/example/communicate'),
+      meta: { title: 'communicate', icon: 'list' },
+      children: [
+        {
+          path: 'props',
+          name: 'props',
+          component: () => import('@/views/example/communicate/props'),
+          meta: {
+            title: 'props', icon: 'list'
+          }
+        },
+        {
+          path: 'children',
+          name: 'children',
+          component: () => import('@/views/example/communicate/children'),
+          meta: {
+            title: 'children', icon: 'list'
+          }
+        },
+        {
+          path: 'provider',
+          name: 'provider',
+          component: () => import('@/views/example/communicate/provider'),
+          meta: {
+            title: 'provider', icon: 'list'
+          }
+        },
+        {
+          path: 'ref',
+          name: 'ref',
+          component: () => import('@/views/example/communicate/ref'),
+          meta: {
+            title: 'ref', icon: 'list'
+          }
+        },
+        {
+          path: 'attr',
+          name: 'attr',
+          component: () => import('@/views/example/communicate/attr'),
+          meta: {
+            title: 'attr', icon: 'list'
+          }
+        }
+      ]
     }
   ]
 }
