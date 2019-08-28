@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input placeholder="标题" v-model="listQuery.title" style="width: 200px" />
+      <el-input v-model="listQuery.title" placeholder="标题" style="width: 200px" />
       <el-select v-model="listQuery.key">
-        <el-option v-for="item in calendarTypeOptions" :key="item.key" :value="item.key"></el-option>
+        <el-option v-for="item in calendarTypeOptions" :key="item.key" :value="item.key" />
       </el-select>
       <el-button icon="el-icon-search" @click="handleSearch">搜索</el-button>
-      <el-button type="primary" icon="el-icon-edit" @click="handleCreate">{{$t('table.add')}}</el-button>
+      <el-button type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t('table.add') }}</el-button>
       <el-checkbox v-model="showReviewer">审核人</el-checkbox>
     </div>
     <el-table v-loading="listLoading" :data="list" border>
@@ -50,28 +50,28 @@
       </el-table-column>
     </el-table>
     <el-dialog :visible.sync="dialogVisible" :title="textMap[dialogStatus]">
-      <el-form :model="temp" ref="dataForm" :rules="rules" label-width="70px">
+      <el-form ref="dataForm" :model="temp" :rules="rules" label-width="70px">
         <el-form-item label="类型" prop="type">
           <el-select v-model="temp.type">
-            <el-option v-for="option in calendarTypeOptions" :key="option.key" :value="option.key"></el-option>
+            <el-option v-for="option in calendarTypeOptions" :key="option.key" :value="option.key" />
           </el-select>
         </el-form-item>
         <el-form-item label="时间" prop="timestamp">
-          <el-date-picker v-model="temp.timestamp" type="datetime"></el-date-picker>
+          <el-date-picker v-model="temp.timestamp" type="datetime" />
         </el-form-item>
         <el-form-item label="标题" prop="title">
           <el-input v-model="temp.title" />
         </el-form-item>
         <el-form-item label="状态">
           <el-select v-model="temp.status">
-            <el-option v-for="item in statusOptions" :key="item" :value="item"></el-option>
+            <el-option v-for="item in statusOptions" :key="item" :value="item" />
           </el-select>
         </el-form-item>
         <el-form-item label="重要性">
-          <el-rate v-model="temp.importance" :max="3" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" style="{'margin-top':'8px'}"></el-rate>
+          <el-rate v-model="temp.importance" :max="3" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" style="{'margin-top':'8px'}" />
         </el-form-item>
         <el-form-item label="点评">
-          <el-input v-model="temp.remark" type="textarea"></el-input>
+          <el-input v-model="temp.remark" type="textarea" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -90,6 +90,7 @@
     { key: 'EU', display_name: 'Eurozone' }
   ]
 
+  import { Message } from 'element-ui'
   import {fetchList, createArticle, updateArticle} from '../../api/article'
   // import {formatDate} from '../../utils'
   export default {
@@ -142,15 +143,21 @@
       this.getList()
     },
     methods: {
-      getList() {
+      async getList() {
         this.listLoading = true
         console.log('listQuery------:', this.listQuery)
-        fetchList(this.listQuery).then(json => {
+        const result = await fetchList(this.listQuery)
+        console.log('result----:', result)
+        this.list = result.data.items
+        setTimeout(() => {
+          this.listLoading = false
+        }, 1.5 * 1000)
+        /* fetchList(this.listQuery).then(json => {
           this.list = json.data.items
           setTimeout(() => {
             this.listLoading = false
           }, 1.5 * 1000)
-        })
+        })*/
       },
       resetTemp() {
         this.temp = {
@@ -188,6 +195,12 @@
           message: '操作成功',
           type: 'success'
         })
+        setTimeout(() => {
+          Message({
+            message: '操作成功2',
+            type: 'success'
+          })
+        }, 2000)
         row.status = status
       },
       updateData() {

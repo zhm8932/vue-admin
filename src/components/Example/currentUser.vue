@@ -3,7 +3,7 @@
     <!--<slot v-bind:user="user">
       {{ user.lastName }}
     </slot>-->
-    <slot v-bind:user="user" :age="age">
+    <slot :user="user" :age="age">
       {{ user.lastName }}
     </slot>
   </p>

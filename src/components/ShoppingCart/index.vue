@@ -6,11 +6,11 @@
     <ul>
       <li v-for="(item, index) in cartProducts" :key="index">
         <span>{{ item.title }} - {{ item.price }} * {{ item.count }}</span>
-        <slot :item="item"></slot>
+        <slot :item="item" />
       </li>
     </ul>
-    <h5 v-if="total">总价：{{total}} ￥</h5>
-    <el-button type="warning" @click="clearCartProduct" :disabled="!cartProducts.length">清空购物车</el-button>
+    <h5 v-if="total">总价：{{ total }} ￥</h5>
+    <el-button type="warning" :disabled="!cartProducts.length" @click="clearCartProduct">清空购物车</el-button>
   </aside>
 </template>
 
@@ -25,7 +25,7 @@
       },
       total: {
         type: Number,
-        total: 0
+        default: 0
       },
       cartProducts: {
         type: Array,

@@ -3,11 +3,11 @@
     <h2>表单验证</h2>
     <ul>
       <li>
-        <el-input v-model="form.name" placeholder="请输入姓名" @input="handleName"/>
+        <el-input v-model="form.name" placeholder="请输入姓名" @input="handleName" />
         <p>{{ form.name }}</p>
       </li>
       <li>
-        <el-input type="password" v-model="form.password" placeholder="请输入密码" @input="handlePassword"/>
+        <el-input v-model="form.password" type="password" placeholder="请输入密码" @input="handlePassword" />
         <p>{{ form.password }}</p>
       </li>
       <li>
@@ -24,11 +24,11 @@
         <p>{{ form.bankCard }}</p>
       </li>
       <li>
-        <el-input v-model="form.num" @input="handleNum" placeholder="只能输入数字" />
+        <el-input v-model="form.num" placeholder="只能输入数字" @input="handleNum" />
       </li>
       <li>
-        <el-input v-model="form.letter" @input="handleLetter" placeholder="只能输入字母"/>
-        <el-input v-model="form.num2" placeholder="只能输入数字和小数点" @input="handleNum2"/>
+        <el-input v-model="form.letter" placeholder="只能输入字母" @input="handleLetter" />
+        <el-input v-model="form.num2" placeholder="只能输入数字和小数点" @input="handleNum2" />
       </li>
     </ul>
   </div>

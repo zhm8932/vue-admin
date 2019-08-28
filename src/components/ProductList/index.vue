@@ -4,7 +4,7 @@
       <li v-for="(item, index) in list" :key="index">
         <h4>{{ item.title }}</h4>
         <p>{{ item.price }}</p>
-        <el-button :type="item.inventory ? 'primary' : 'info'" @click="addProductCart(item)" :disabled="!item.inventory">加入购物车</el-button>
+        <el-button :type="item.inventory ? 'primary' : 'info'" :disabled="!item.inventory" @click="addProductCart(item)">加入购物车</el-button>
       </li>
     </ul>
   </aside>

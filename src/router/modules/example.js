@@ -76,6 +76,14 @@ const exampleRouter = {
       component: () => import('../../views/example/create')
     },
     {
+      path: 'mixin',
+      name: 'mixin',
+      component: () => import('../../views/example/mixin'),
+      meta: {
+        title: 'mixin'
+      }
+    },
+    {
       path: 'sync',
       name: 'sync',
       component: () => import('../../views/example/sync'),

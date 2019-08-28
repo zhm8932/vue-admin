@@ -2,7 +2,7 @@
   <div class="app-container">
     <aside>
       <h4>侦听器</h4>
-      <el-input v-model="demo.name"/>
+      <el-input v-model="demo.name" />
       <p>{{ value }}</p>
     </aside>
     <aside>

@@ -1,6 +1,6 @@
 <template>
   <div v-show="show">
-    <p>默认初始值是{{show}}，所以是显示的</p>
+    <p>默认初始值是{{ show }}，所以是显示的</p>
     <button @click="closeDiv">关闭</button>
   </div>
 </template>

@@ -19,12 +19,12 @@
     <p>b的值: {{ form.b }} <el-button @click="changeB">改变B</el-button></p>
     <p v-for="(item, index) in trees" :key="index" @click="changeMe(index)">{{ item }}</p>
     <div @click="changeObj">{{ obj }}</div>
-    <el-input type="text" v-model="form.str" />
+    <el-input v-model="form.str" type="text" />
     <p>{{ form.str }}</p>
-    <p>{{ reversedStr}}</p>
-    <el-input v-model="form.b" @input="handleChange" placeholder="只能输入限定位数的整数、首位不为零"/>
+    <p>{{ reversedStr }}</p>
+    <el-input v-model="form.b" placeholder="只能输入限定位数的整数、首位不为零" @input="handleChange" />
     <p>{{ form.b }}</p>
-    <el-input v-model="form.c" @input="handleChange2" placeholder="只能输入限定保留2位小数、首位不为零"/>
+    <el-input v-model="form.c" placeholder="只能输入限定保留2位小数、首位不为零" @input="handleChange2" />
     <p>{{ form.c }}</p>
   </div>
 </template>

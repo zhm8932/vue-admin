@@ -19,11 +19,11 @@
         <el-button :href="'#del/id/'+users[props.$index].id">删除</el-button>
       </template>
     </sChild3>
-    <sChild4 :items="books"></sChild4>
+    <sChild4 :items="books" />
     <sChild4 :items="books">
       <template slot-scope="child">
         <div>{{ child }}</div>
-        <p><span style="color:red">{{child.index+1}}、</span><b>《{{child.title}}》</b><i>{{child.author}}</i></p>
+        <p><span style="color:red">{{ child.index+1 }}、</span><b>《{{ child.title }}》</b><i>{{ child.author }}</i></p>
       </template>
     </sChild4>
     <p>--------------------------------------------</p>

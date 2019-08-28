@@ -1,23 +1,23 @@
 <template>
   <div class="app-container">
     <div>
-      <input v-model="a" type="text" />
+      <input v-model="a" type="text">
       <span>{{ a }}</span>
       <p>
-        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <input id="jack" v-model="checkedNames" type="checkbox" value="Jack">
         <label for="jack">Jack</label>
-        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <input id="john" v-model="checkedNames" type="checkbox" value="John">
         <label for="john">John</label>
-        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <input id="mike" v-model="checkedNames" type="checkbox" value="Mike">
         <label for="mike">Mike</label>
         <br>
         <span>Checked names: {{ checkedNames }}</span>
       </p>
       <p>
-        <input type="radio" id="one" value="One" v-model="picked">
+        <input id="one" v-model="picked" type="radio" value="One">
         <label for="one">One</label>
         <br>
-        <input type="radio" id="two" value="Two" v-model="picked">
+        <input id="two" v-model="picked" type="radio" value="Two">
         <label for="two">Two</label>
         <br>
         <span>Picked: {{ picked }}</span>
@@ -40,7 +40,7 @@
       </p>
     </div>
     <div>
-      <input :value="d" @input="d = $event.target.value" />
+      <input :value="d" @input="d = $event.target.value">
       <span>{{ d }}</span>
     </div>
     <div>
@@ -49,12 +49,12 @@
     </div>
     <div>
       <!--<my-input v-model="c" type="text" :checked="checked" />-->
-      <my-input v-model="c"/>
+      <my-input v-model="c" />
       <span>{{ c }}</span>
     </div>
     <div>
       <h3>myInput2</h3>
-      <myInput2 v-model="c2"/>
+      <myInput2 v-model="c2" />
       <span>{{ c2 }}</span>
     </div>
     <div>
@@ -62,7 +62,7 @@
     这儿是组件的父级，也就是组件的实例。实例本来应该定义事件来监听子组件的一切“异动”，
     但v-model呢却是给组件内部加个model:{prop:"自定义",event:"自定义"}来监听子组件的变化
 -->
-      <myCheckbox v-model="checked2" @change="handleChange"/>
+      <myCheckbox v-model="checked2" @change="handleChange" />
       <p>{{ checked2 }}</p>
     </div>
     <div>
@@ -80,7 +80,7 @@
     </div>
     <div>
       <h3>mySelect3</h3>
-      <mySelect3 v-model="selectValue3" :options="options" @handleChange="handleChange"/>
+      <mySelect3 v-model="selectValue3" :options="options" @handleChange="handleChange" />
       <p>{{ selectValue3 }}</p>
     </div>
   </div>

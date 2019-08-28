@@ -26,6 +26,18 @@ const componentsRouter = {
       component: () => import('../../views/components-demo/sticky'),
       name: 'Sticky',
       meta: { title: 'Sticky'}
+    },
+    {
+      path: 'tinymce',
+      component: () => import('../../views/components-demo/tinymce'),
+      name: 'tinymce',
+      meta: { title: 'tinymce'}
+    },
+    {
+      path: 'qrCode',
+      component: () => import('../../views/components-demo/qrCode'),
+      name: 'qrCode',
+      meta: {title: 'qrCode'}
     }
   ]
 }

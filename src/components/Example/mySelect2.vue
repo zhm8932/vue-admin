@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--<el-select :value="selectValue2" @change="handleChange" placeholder="请选择!">-->
-    <el-select :value="value" @change="handleChange" placeholder="请选择!">
+    <el-select :value="value" placeholder="请选择!" @change="handleChange">
       <el-option
         v-for="item in options"
         :key="item.value"

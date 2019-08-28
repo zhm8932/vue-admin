@@ -11,13 +11,13 @@
     </aside>
     <aside>
       <!--//input实时改变wrd的值, 并且会实时改变box里的内容-->
-      <input type="text" v-model="wrd" placeholder="请输入内容--父">
-      <syncChild3 :word="wrd" @update:word="updateWord"></syncChild3>
+      <input v-model="wrd" type="text" placeholder="请输入内容--父">
+      <syncChild3 :word="wrd" @update:word="updateWord" />
     </aside>
     <aside>
       <!--//input实时改变wrd的值, 并且会实时改变box里的内容-->
-      <input type="text" v-model="wrd" placeholder="请输入内容--父">
-      <syncChild4 :word.sync="wrd"></syncChild4>
+      <input v-model="wrd2" type="text" placeholder="请输入内容--父">
+      <syncChild4 :word.sync="wrd2" />
     </aside>
   </div>
 </template>
@@ -34,7 +34,8 @@
       return {
         show: true,
         show2: true,
-        wrd: ''
+        wrd: '',
+        wrd2: ''
       }
     },
     methods: {

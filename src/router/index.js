@@ -48,6 +48,29 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/excel',
+    component: Layout,
+    meta: {title: 'Excel'},
+    children: [
+      {
+        path: 'upload',
+        name: 'excelUpload',
+        component: () => import('../views/excel/uploadExcel'),
+        meta: {
+          title: 'excelUpload'
+        }
+      },
+      {
+        path: 'export',
+        name: 'excelExport',
+        component: () => import('../views/excel/exportExcel'),
+        meta: {
+          title: 'excelExport'
+        }
+      }
+    ]
+  },
   componentsRouter,
   tableRouter,
   nestedRouter,

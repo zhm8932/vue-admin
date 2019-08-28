@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" v-model="str" placeholder="请输入内容---子">
+    <input v-model="str" type="text" placeholder="请输入内容---子">
     <!--//word是父元素传过来的-->
     <h3>{{ word }}</h3>
   </div>
@@ -11,7 +11,8 @@
     name: 'SyncChild',
     props: {
       word: {
-        type: String
+        type: String,
+        default: ''
       }
     },
     data() {
