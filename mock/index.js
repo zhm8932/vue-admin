@@ -7,6 +7,8 @@ import article from './article'
 import search from './remoteSearch'
 import products from './products'
 import home from './home'
+import data from './data'
+// import {uploadImage} from './data'
 
 const mocks = [
   ...user,
@@ -14,7 +16,8 @@ const mocks = [
   ...article,
   ...search,
   ...products,
-  ...home
+  ...home,
+  ...data
 ]
 
 // for front mock
@@ -35,15 +38,21 @@ export function mockXHR() {
     this.proxy_send(...arguments)
   }
 
-  function XHR2ExpressReqWrap(respond) {
+  function XHR2ExpressReqWrap(respond, headers = {}) {
+    // console.log('respond-----:', respond)
     return function(options) {
+      console.log('options:', options, 'headers---：', headers)
       let result = null
       if (respond instanceof Function) {
+        console.log('-----respond------:')
         const { body, type, url } = options
         // https://expressjs.com/en/4x/api.html#req
+        console.log('body--:', typeof body, body && body.constructor && body.constructor.name, body)
+        const tempBody = headers && headers['Content-Type'] === 'multipart/form-data' ? body : JSON.parse(body)
         result = respond({
           method: type,
-          body: JSON.parse(body),
+          body: tempBody,
+          headers: headers,
           query: param2Obj(url)
         })
       } else {
@@ -55,7 +64,8 @@ export function mockXHR() {
   }
 
   for (const i of mocks) {
-    Mock.mock(new RegExp(i.url), i.type || 'get', XHR2ExpressReqWrap(i.response))
+    // console.log('i-----:', i)
+    Mock.mock(new RegExp(i.url), i.type || 'get', XHR2ExpressReqWrap(i.response, i.headers), i.headers || {})
   }
 }
 
@@ -65,11 +75,15 @@ const responseFake = (url, type, respond) => {
     url: new RegExp(`/mock${url}`),
     type: type || 'get',
     response(req, res) {
+      console.log('respond instanceof Function--:', respond instanceof Function)
       res.json(Mock.mock(respond instanceof Function ? respond(req, res) : respond))
     }
   }
 }
 
+// Mock.mock(/\/image\/upload/, uploadImage)
+
 export default mocks.map(route => {
-  return responseFake(route.url, route.type, route.response)
+  // console.log('route----------:', route)
+  return responseFake(route.url, route.type, route.response, route.headers)
 })

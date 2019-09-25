@@ -110,6 +110,7 @@
         const newLineNumOfCursorLeft = (newCardNum.slice(0, cursorIndex).match(/-/g) || []).length
         // 光标在改后字符串中应在的位置
         const newCursorIndex = cursorIndex + newLineNumOfCursorLeft - lineNumOfCursorLeft
+        console.log('newCursorIndex:', newCursorIndex, cursorIndex, newLineNumOfCursorLeft, lineNumOfCursorLeft)
         // 赋新值，nextTick保证-不能手动输入或删除，只能按照规则自动填入
         this.$nextTick(() => {
           console.log('newCardNum.replace(/-/)---:', newCardNum.replace(/-/g, ''), newCardNum)

@@ -6,8 +6,7 @@ function auto_width(ws, data) {
     /* if null/undefined*/
     if (val == null) {
       return {'wch': 10}
-    }
-    else if (val.toString().charCodeAt(0) > 255) {
+    } else if (val.toString().charCodeAt(0) > 255) {
       return {'wch': val.toString().length * 2}
     } else {
       return {'wch': val.toString().length}
@@ -59,7 +58,7 @@ function json_to_array(key, jsonData) {
 * @param[filename] String
 * @param[authWidth] Bollean
 * */
-export const exportArrayToExcel = ({key, data, title, filename, authWidth}) => {
+export const exportArrayToExcel = ({key, data, title, filename, bookType = 'xlsx', authWidth = true} = {}) => {
   const wb = XLSX.utils.book_new()
   const arr = json_to_array(key, data)
   arr.unshift(title)
@@ -67,8 +66,9 @@ export const exportArrayToExcel = ({key, data, title, filename, authWidth}) => {
   if (authWidth) {
     auto_width(ws, arr)
   }
+  filename = filename || 'excel-list'
   XLSX.utils.book_append_sheet(wb, ws, filename)
-  XLSX.writeFile(wb, filename + '.xlsx')
+  XLSX.writeFile(wb, `${filename}.${bookType}`)
 }
 
 /*

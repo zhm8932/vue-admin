@@ -38,6 +38,24 @@ const componentsRouter = {
       component: () => import('../../views/components-demo/qrCode'),
       name: 'qrCode',
       meta: {title: 'qrCode'}
+    },
+    {
+      path: 'clipboard',
+      name: 'clipboard',
+      component: () => import('../../views/components-demo/clipboard'),
+      meta: {title: 'clipboard'}
+    },
+    {
+      path: 'directive',
+      name: 'directive',
+      component: () => import('../../views/components-demo/directive'),
+      meta: {title: 'directive'}
+    },
+    {
+      path: 'cropper',
+      name: 'cropper',
+      component: () => import('../../views/components-demo/cropper'),
+      meta: {title: 'cropper'}
     }
   ]
 }

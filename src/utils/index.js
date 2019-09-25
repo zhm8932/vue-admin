@@ -113,8 +113,8 @@ export function timeAgo2(t1, t2) {
     case time === 0:
       result = '刚刚'
       break
-    case time > 1000 * 60 * 60 * 24 * 30 * 12:
-      result = `${parseInt(time / (1000 * 60 * 60 * 24 * 30 * 12))}年${suffix}`
+    case time > 1000 * 60 * 60 * 24 * 365:
+      result = `${parseInt(time / (1000 * 60 * 60 * 24 * 365))}年${suffix}`
       break
     case time > 1000 * 60 * 60 * 24 * 30:
       result = `${parseInt(time / (1000 * 60 * 60 * 24 * 30))}个月${suffix}`

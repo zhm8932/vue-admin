@@ -2,6 +2,15 @@
   <div class="dashboard-container">
     首页
     <el-card>
+      <el-row>
+        <el-col :md="8" :lg="4" v-for="(info, index) in inforCardData" :key="index" style="height: 120px; padding: 10px;">
+          <InfoCard>
+            <h4>{{ info.title }}</h4>
+            <!--<p> {{ info.count }}</p>-->
+            <CountUp :end="info.count"></CountUp>
+          </InfoCard>
+        </el-col>
+      </el-row>
       <el-row :gutter="20">
         <el-col :span="10" :offset="2">
           <ChartBar style="height: 300px;" :value="barData" title="每周用户活跃量" />
@@ -17,15 +26,25 @@
 <script>
 import {timeAgo} from '../../utils'
 import {ChartBar, ChartPie} from '../../components/Charts'
+import InfoCard from '../../components/InfoCard'
+import CountUp from '../../components/CountUp'
 import {getChartData} from '../../api/home'
 export default {
   name: 'Dashboard',
-  components: { ChartBar, ChartPie },
+  components: { ChartBar, ChartPie, InfoCard, CountUp },
   data() {
     return {
       barDataNum: 0,
       barData: {},
-      pieData: []
+      pieData: [],
+      inforCardData: [
+        { title: '新增用户', icon: 'md-person-add', count: 803, color: '#2d8cf0' },
+        { title: '累计点击', icon: 'md-locate', count: 232, color: '#19be6b' },
+        { title: '新增问答', icon: 'md-help-circle', count: 142, color: '#ff9900' },
+        { title: '分享统计', icon: 'md-share', count: 657, color: '#ed3f14' },
+        { title: '新增互动', icon: 'md-chatbubbles', count: 12, color: '#E46CBB' },
+        { title: '新增页面', icon: 'md-map', count: 14, color: '#9A66E4' }
+      ]
     /*  barData: {
         Mon: 23253,
         Tue: 34235,

@@ -68,6 +68,22 @@ export const asyncRoutes = [
         meta: {
           title: 'excelExport'
         }
+      },
+      {
+        path: 'selectExcel',
+        name: 'selectExcel',
+        component: () => import('../views/excel/selectExcel'),
+        meta: {
+          title: 'selectExcel'
+        }
+      },
+      {
+        path: 'exportZip',
+        name: 'exportZip',
+        component: () => import('../views/excel/exportZip'),
+        meta: {
+          title: 'exportZip'
+        }
       }
     ]
   },

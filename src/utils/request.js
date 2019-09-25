@@ -15,11 +15,22 @@ const service = axios.create({
 service.interceptors.request.use(
 	config => {
 	  // Do something before request is sent
-	  if (store.getters.token) {
+    const headers = config.headers
+    /* config.headers['X-client'] = navigator.userAgent
+	   if (store.getters.token) {
 		// 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-		config.headers['X-Token'] = getToken()
+		  config.headers['X-Token'] = getToken()
 	  }
-	  console.log('config-----:', config)
+    if (headers['Content-Type']) {
+      config.headers['Content-Type'] = headers['Content-Type']
+    }*/
+    config.headers = {
+      ...config.headers,
+      'X-Token': getToken(),
+      'X-client': navigator.userAgent,
+      'Content-Type': headers['Content-Type']
+    }
+	  // console.log('config-----:', config.headers, JSON.stringify(config))
 	  return config
 	},
 	error => {

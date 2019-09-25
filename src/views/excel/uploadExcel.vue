@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card>
       <h4 slot="header">导入EXCEL</h4>
-      <UploadElcel :table-data="tableData" :table-header="tableHeader" @handleUpload="handleUpload"></UploadElcel>
+      <UploadElcel :table-data="tableData" :table-header="tableHeader" @handleUpload="handleUpload" />
       <!--<el-row>
         <el-upload action="" :before-upload="handleBeforeUpload" accept=".xls, .xlsx">
           <el-button icon="ios-cloud-upload-outline" :loading="uploadLoading" @click="handleUploadFile">上传</el-button>

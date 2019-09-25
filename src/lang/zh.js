@@ -28,6 +28,8 @@ export default {
     lineChart: '折线图',
     mixChart: '混合图表',
     example: '综合实例',
+    excelUpload: '上传 Excel',
+    excelExport: '导出 Excel',
     nested: '路由嵌套',
     menu1: '菜单1',
     'menu1-1': '菜单 1-1',
