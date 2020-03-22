@@ -68,9 +68,10 @@ export function mockXHR() {
     Mock.mock(new RegExp(i.url), i.type || 'get', XHR2ExpressReqWrap(i.response, i.headers), i.headers || {})
   }
 }
-
+console.log('mock服务----------------------')
 // for mock server
 const responseFake = (url, type, respond) => {
+  console.log('url---:', url)
   return {
     url: new RegExp(`/mock${url}`),
     type: type || 'get',

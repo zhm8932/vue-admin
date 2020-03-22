@@ -32,7 +32,9 @@ export default [
     url: '/article/list',
     type: 'get',
     response: config => {
-      const { importance, type, title, page = 1, limit = 20, sort } = config.query
+      console.log('config---:', config)
+      const params = config.query.page ? config.query : config.body
+      const { importance, type, title, page = 1, limit = 20, sort } = params
 
       let mockList = List.filter(item => {
         if (importance && item.importance !== +importance) return false

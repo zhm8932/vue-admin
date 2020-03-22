@@ -9,10 +9,10 @@
       <el-button type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t('table.add') }}</el-button>
       <el-checkbox v-model="showReviewer">审核人</el-checkbox>
     </div>
-    <el-table v-loading="listLoading" class="table" :data="list" border>
+    <el-table class="table" v-loading="listLoading" :data="list" border>
       <el-table-column label="序号">
         <template slot-scope="scope">
-          {{ scope.$index + 1 }}
+          {{scope.$index + 1}}
         </template>
       </el-table-column>
       <el-table-column label="ID" prop="id">
@@ -26,17 +26,7 @@
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.title')" prop="title" />
-      <el-table-column label="作者" prop="author">
-        <template slot-scope="scope">
-          <el-popover trigger="hover">
-            <p>审核人:{{ scope.row.reviewer }}</p>
-            <p><span style="float: left">内容：</span><aside v-html="scope.row.content"> </aside></p>
-            <div slot="reference">
-              {{ scope.row.author }}
-            </div>
-          </el-popover>
-        </template>
-      </el-table-column>
+      <el-table-column label="作者" prop="author" />
       <el-table-column label="重要性" prop="importance">
         <template slot-scope="scope">
           <svg-icon v-for="i in scope.row.importance" :key="i" icon-class="star" class="meta-item__icon" />
@@ -64,6 +54,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <Observer @intersect="intersected"/>
     <el-dialog :visible.sync="dialogVisible" :title="textMap[dialogStatus]">
       <el-form ref="dataForm" :model="temp" :rules="rules" label-width="70px">
         <el-form-item label="类型" prop="type">
@@ -106,10 +97,12 @@
   ]
 
   import { Message } from 'element-ui'
+  import Observer from '../../components/Observer'
   import {fetchList, createArticle, updateArticle} from '../../api/article'
   // import {formatDate} from '../../utils'
   export default {
     name: 'ComplexTable',
+    components: {Observer},
     filters: {
       statusFilter(status) {
         // success/info/warning/danger
@@ -160,6 +153,19 @@
       this.getList()
     },
     methods: {
+      async intersected(scrollTop) {
+        if (this.list && this.list.length && this.listQuery.page < this.listQuery.pageNum) {
+          console.log('scrollTop-----:', scrollTop)
+          console.log('触发监听函数')
+          this.listQuery.page = this.listQuery.page + 1
+          const result = await fetchList(this.listQuery)
+          this.list = [...this.list, ...result.data.items]
+          this.$nextTick(() => {
+            // 滚动到渲染之前的位置
+            window.scrollTo(0, scrollTop)
+          })
+        }
+      },
       async getList() {
         this.listLoading = true
         console.log('listQuery------:', this.listQuery)

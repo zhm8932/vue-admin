@@ -22,7 +22,7 @@ import { mockXHR } from '../mock'
 
 if (process.env.NODE_ENV !== 'production') { mockXHR() }
 
-console.log('store-----------:', store)
+console.log('NODE_ENV:', process.env.NODE_ENV, 'store-----------:', store)
 Vue.use(Element, {
   i18n: (key, value) => i18n.t(key, value)
 })

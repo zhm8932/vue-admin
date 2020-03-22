@@ -3,11 +3,11 @@
     首页
     <el-card>
       <el-row>
-        <el-col :md="8" :lg="4" v-for="(info, index) in inforCardData" :key="index" style="height: 120px; padding: 10px;">
+        <el-col v-for="(info, index) in inforCardData" :key="index" :md="8" :lg="4" style="height: 120px; padding: 10px;">
           <InfoCard>
             <h4>{{ info.title }}</h4>
             <!--<p> {{ info.count }}</p>-->
-            <CountUp :end="info.count"></CountUp>
+            <CountUp :end="info.count" />
           </InfoCard>
         </el-col>
       </el-row>
@@ -16,9 +16,12 @@
           <ChartBar style="height: 300px;" :value="barData" title="每周用户活跃量" />
         </el-col>
         <el-col :span="10" :offset="2">
-          <ChartPie style="height: 300px;" :value="pieData" title="用户访问来源"></ChartPie>
+          <ChartPie style="height: 300px;" :value="pieData" title="用户访问来源" />
         </el-col>
       </el-row>
+    </el-card>
+    <el-card>
+      <DemandLoad />
     </el-card>
   </div>
 </template>
@@ -31,7 +34,9 @@ import CountUp from '../../components/CountUp'
 import {getChartData} from '../../api/home'
 export default {
   name: 'Dashboard',
-  components: { ChartBar, ChartPie, InfoCard, CountUp },
+  components: { ChartBar, ChartPie, InfoCard, CountUp,
+    DemandLoad: () => import('../../components/DemandLoad')
+  },
   data() {
     return {
       barDataNum: 0,
@@ -78,9 +83,31 @@ export default {
     timeAgo('2016-1-1 0:0:50', '2016-1-1 0:0:50')
   },
   mounted() {
+    this.uniqueArr()
+    this.fromArr()
     this.getChartData()
   },
   methods: {
+    uniqueArr() {
+      // 数组去重
+      const array = [1, 1, 2, 3, 5, 5, 1]
+      // 将indeOf中的所在位置的索引与当前的索引比较，以确定是否重复
+      // array.filter((arr, index) => array.indexOf(arr) === index)
+      const newArr = array.filter((arr, index) => {
+        console.log('arr:', arr, 'array.indexOf(arr)-:', array.indexOf(arr), 'index:', index)
+        return array.indexOf(arr) === index
+      })
+      console.log('newArr-:', newArr) // [1, 2, 3, 5]
+      // https://www.w3cplus.com/javascript/javascript-tips.html © w3cplus.com
+    },
+    fromArr() {
+      // 不使用Array.map来映射数组值的方法
+      const array = [
+        { name: '大漠', email: 'w3cplus@hotmail.com' },
+        { name: 'Airen', email: 'airen@gmail.com' }]
+      const name = Array.from(array, ({ name }) => name)
+      console.log('namename--:', name) // ["大漠", "Airen"]
+    },
     async getChartData() {
       const result = await getChartData()
       console.log('result---:', result)

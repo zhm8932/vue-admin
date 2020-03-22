@@ -16,6 +16,12 @@ const tableRouter = {
       component: () => import('../../views/table/complexTable')
     },
     {
+      path: '/pageTable',
+      name: 'pageTable',
+      meta: {title: 'pageTable'},
+      component: () => import('../../views/table/pageTable')
+    },
+    {
       path: '/dragTable',
       name: 'DragTable',
       meta: {title: 'dragTable'},

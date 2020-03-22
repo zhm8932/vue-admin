@@ -43,6 +43,7 @@ export default {
     dragTable: '拖拽 Table',
     inlineEditTable: 'Table 内编辑',
     complexTable: '综合 Table',
+    pageTable: '分页 Table',
     tab: 'Tab',
     form: '表单',
     createArticle: '创建文章',
