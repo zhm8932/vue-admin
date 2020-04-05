@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
     <h3>页面权限</h3>
+    <p>测试</p>
     <switch-roles @change="handleRoleChange" />
   </div>
 </template>

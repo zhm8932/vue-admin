@@ -5,7 +5,7 @@
     </h2>
     <comC
       class="attr-wrapper"
-      :names="name"
+      :userName="name"
       :age="age"
       :gender="gender"
       :height="height"
@@ -31,7 +31,7 @@ $listeners--属性，它是一个对象，里面包含了作用在这个组件�
     components: {comC},
     data() {
       return {
-        name: 'zhang',
+        name: '张三',
         age: '18',
         gender: '女',
         height: '168'

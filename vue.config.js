@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path')
 const pkg = require('./package.json')
+const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -51,6 +52,17 @@ module.exports = {
     after: require('./mock/mock-server.js')
   },
   configureWebpack: {
+    plugins: [
+      new SkeletonWebpackPlugin({
+        webpackConfig: {
+          entry: {
+            app: path.join(__dirname, './src/skeleton.js')
+          }
+        },
+        minimize: true,
+        quiet: true
+      })
+    ],
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
     name: name,
